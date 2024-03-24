@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Profile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Professors</a></li>
+                <li><a href="#">Universities</a></li>
+                <li><a href="#">Reviews</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="professor-profile">
+            <div class="profile-details">
+                <h2>Professor Profile</h2>
+                <div class="professor-info">
+                    <img id="professor-image" src="" alt="">
+                    <h3 id="professor-name"></h3>
+                    <p id="professor-university"></p>
+                    <p id="professor-bio"></p>
+                </div>
+                <div class="rating-section">
+                    <h3>Rate this Professor</h3>
+                    <input type="range" min="0" max="100" value="50" id="rating-slider">
+                    <output id="rating-value">50</output>
+                </div>
+                <div class="review-section">
+                    <h3>Write a Review</h3>
+                    <textarea id="review-text" rows="4" placeholder="Write your review here..."></textarea>
+                    <button id="submit-review-btn">Submit Review</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2022 CoopeRate @DKU. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Retrieve selected professor data from local storage
+        const selectedProfessor = JSON.parse(localStorage.getItem('selectedProfessor'));
+        if (selectedProfessor) {
+            document.getElementById('professor-image').src = selectedProfessor.image;
+            document.getElementById('professor-name').textContent = selectedProfessor.name;
+            document.getElementById('professor-university').textContent = selectedProfessor.university;
+            document.getElementById('professor-bio').textContent = selectedProfessor.bio;
+        }
+
+        // Event listener for rating slider
+        const ratingSlider = document.getElementById('rating-slider');
+        const ratingValue = document.getElementById('rating-value');
+        ratingSlider.addEventListener('input', function() {
+            ratingValue.textContent = this.value;
+        });
+
+        // Event listener for submit review button
+        const submitReviewBtn = document.getElementById('submit-review-btn');
+        submitReviewBtn.addEventListener('click', function() {
+            const reviewText = document.getElementById('review-text').value;
+            const rating = ratingSlider.value;
+            // You can handle review submission here, e.g., send it to a server
+            console.log('Review Text:', reviewText);
+            console.log('Rating:', rating);
+            // Clear review text area
+            document.getElementById('review-text').value = '';
+            // Reset rating slider to default value
+            ratingSlider.value = 50;
+            ratingValue.textContent = '50';
+        });
+    </script>
+</body>
+</html>
